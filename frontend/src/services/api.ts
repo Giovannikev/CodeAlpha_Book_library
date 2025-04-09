@@ -66,7 +66,7 @@ export async function borrowBook(data: {
 }): Promise<BorrowRecord> {
   // First, we need to get the current user ID
   // For now, we'll use a placeholder - in a real app, this would come from authentication
-  const userId = "some-user-id" // Replace with actual user ID from auth context
+  const userId = "fdaa4158-fb8e-4e23-af0b-0ff0e744a3b3"
 
   const response = await fetch(`${API_BASE_URL}/borrow-records`, {
     method: "POST",

@@ -15,15 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { format, addDays } from 'date-fns';
-
-interface BorrowDialogProps {
-  book: { title: string } & { isAvailable: boolean };
-  onBorrow: (data: {
-    borrowedTo: string;
-    dueDate: Date;
-    notes: string;
-  }) => Promise<void>;
-}
+import { BorrowDialogProps } from '@/types/type';
 
 export const BorrowDialog: React.FC<BorrowDialogProps> = ({
   book,
@@ -43,6 +35,7 @@ export const BorrowDialog: React.FC<BorrowDialogProps> = ({
     setBorrowing(true);
     try {
       await onBorrow({
+        bookId: book.id, // Ajoutez cette ligne pour inclure l'ID du livre
         borrowedTo,
         dueDate: new Date(dueDate),
         notes,

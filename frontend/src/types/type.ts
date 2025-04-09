@@ -38,3 +38,13 @@ export interface BorrowRecord {
   userId: string
   book?: Book
 }
+
+export interface BorrowDialogProps {
+  book: { id: string; title: string; isAvailable: boolean }; // Ajoutez `id`
+  onBorrow: (data: {
+    bookId: string;
+    borrowedTo: string;
+    dueDate: Date;
+    notes: string;
+  }) => Promise<void>;
+}
