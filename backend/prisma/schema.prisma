@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // Changed to sqlite
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication and personalization
+model User {
+  id            String        @id @default(uuid())
+  email         String        @unique
+  name          String?
+  password      String        // Hashed password
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  books         Book[]        // Books owned by the user
+  borrowRecords BorrowRecord[] // Borrowing records associated with the user
+}
+
+// Book model for storing book information
+model Book {
+  id            String        @id @default(uuid())
+  title         String
+  author        String
+  isbn          String?       @unique
+  description   String?       // Removed @db.Text as it's not needed for SQLite
+  coverImageUrl String?
+  publicationYear Int?
+  publisher     String?
+  pageCount     Int?
+  language      String?
+  addedAt       DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  isAvailable   Boolean       @default(true)
+  
+  // Relations
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories    CategoryOnBook[]
+  borrowRecords BorrowRecord[]
+}
+
+// Category model for book categorization
+model Category {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String?
+  books       CategoryOnBook[]
+}
+
+// Junction table for many-to-many relationship between Book and Category
+model CategoryOnBook {
+  bookId      String
+  categoryId  String
+  assignedAt  DateTime      @default(now())
+  
+  // Relations
+  book        Book          @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  category    Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  @@id([bookId, categoryId])
+}
+
+// BorrowRecord model for tracking book lending history
+model BorrowRecord {
+  id            String      @id @default(uuid())
+  borrowedTo    String      // Name of the person who borrowed the book
+  borrowedDate  DateTime    @default(now())
+  dueDate       DateTime
+  returnedDate  DateTime?
+  notes         String?     // Removed @db.Text as it's not needed for SQLite
+  
+  // Relations
+  bookId        String
+  book          Book        @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
