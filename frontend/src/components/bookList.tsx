@@ -2,13 +2,7 @@
 
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import {
-  fetchBooks,
-  fetchCategories,
-  searchBooks,
-  type Book,
-  type Category,
-} from '../services/api';
+import { fetchBooks, fetchCategories, searchBooks } from '../services/api';
 import { Link } from 'react-router-dom';
 import { BookOpen, Search, X } from 'lucide-react';
 
@@ -32,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { Book, Category } from '@/types/type';
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);

@@ -1,44 +1,7 @@
 // services/api.tsx
-export interface Book {
-  id: string
-  title: string
-  author: string
-  isbn?: string
-  description?: string
-  coverImageUrl?: string
-  publicationYear?: number
-  publisher?: string
-  pageCount?: number
-  language?: string
-  isAvailable: boolean
-  userId: string
-  categories?: CategoryOnBook[]
-  borrowRecords?: BorrowRecord[]
-}
 
-export interface Category {
-  id: string
-  name: string
-  description?: string
-}
+import { Book, Category, BorrowRecord } from "@/types/type"
 
-export interface CategoryOnBook {
-  bookId: string
-  categoryId: string
-  category: Category
-}
-
-export interface BorrowRecord {
-  id: string
-  borrowedTo: string
-  borrowedDate: Date
-  dueDate: Date
-  returnedDate?: Date
-  notes?: string
-  bookId: string
-  userId: string
-  book?: Book
-}
 
 const API_BASE_URL = "http://localhost:3000/api"
 
@@ -56,16 +19,6 @@ export async function fetchBookById(id: string): Promise<Book> {
   return await response.json()
 }
 
-// Create a new book
-export async function createBook(data: Partial<Book>): Promise<Book> {
-  const response = await fetch(`${API_BASE_URL}/books`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  })
-  if (!response.ok) throw new Error("Error creating book")
-  return await response.json()
-}
 
 // Search books by title, category, and/or publication year
 // Note: Since there's no dedicated search endpoint, we'll fetch all books and filter client-side

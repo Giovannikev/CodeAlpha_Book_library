@@ -3,11 +3,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  fetchBorrowedBooks,
-  returnBook,
-  type BorrowRecord,
-} from '../services/api';
+import { fetchBorrowedBooks, returnBook } from '@/services/api';
 import {
   ArrowLeft,
   BookOpen,
@@ -23,6 +19,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { format, isAfter } from 'date-fns';
+import { BorrowRecord } from '@/types/type';
 
 const BorrowedBooks: React.FC = () => {
   const [borrowedBooks, setBorrowedBooks] = useState<BorrowRecord[]>([]);
@@ -215,7 +212,7 @@ const BorrowedBooks: React.FC = () => {
                           ? 'outline'
                           : isOverdue(record.dueDate)
                           ? 'destructive'
-                          : 'success'
+                          : 'secondary'
                       }
                     >
                       {record.returnedDate
