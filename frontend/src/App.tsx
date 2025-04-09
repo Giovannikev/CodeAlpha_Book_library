@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/header';
 import { useState } from 'react';
-import AddBook from './pages/addBook';
 import BookDetailPage from './pages/bookDetailPage';
 import Books from './pages/books';
 import BorrowedBooks from './components/borrowedBooks';
@@ -33,7 +32,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<Books />} />
           <Route path="/books/:id" element={<BookDetailPage />} />
-          <Route path="/add-book" element={<AddBook />} />
           <Route path="/borrowed" element={<BorrowedBooks />} />
         </Routes>
       </div>

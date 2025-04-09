@@ -255,7 +255,7 @@ const BookList: React.FC = () => {
                       '/placeholder.svg?height=225&width=400'
                     }
                     alt={book.title}
-                    className="object-cover w-full h-full"
+                    className="object-cover w-[400px] h-full"
                   />
                 </AspectRatio>
               </CardHeader>

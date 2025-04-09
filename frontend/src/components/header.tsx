@@ -19,7 +19,6 @@ interface NavbarProps {
 const navLink = [
   { href: '/books', label: 'Books' },
   { href: '/borrowed', label: 'My borrowed books' },
-  { href: '/add-book', label: 'Add book' },
 ];
 
 export default function Header({ isDarkMode, toggleDarkMode }: NavbarProps) {

@@ -24,7 +24,7 @@ const Home: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <Card>
           <CardHeader>
             <CardTitle>Browse Books</CardTitle>
@@ -42,28 +42,6 @@ const Home: React.FC = () => {
               <Link to="/books">
                 <BookOpen className="mr-2 h-4 w-4" />
                 View Book List
-              </Link>
-            </Button>
-          </CardFooter>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Add a Book</CardTitle>
-            <CardDescription>
-              Add a new book to your personal collection.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-32 flex items-center justify-center bg-muted/50 rounded-md">
-              <PlusCircle className="h-16 w-16 text-muted-foreground/70" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button asChild variant="outline" className="w-full">
-              <Link to="/add-book">
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add New Book
               </Link>
             </Button>
           </CardFooter>
