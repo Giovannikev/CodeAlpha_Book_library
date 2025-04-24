@@ -2,19 +2,16 @@ import Home from './pages/home';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/header';
-import { useState } from 'react';
 import BookDetailPage from './pages/bookDetailPage';
 import Books from './pages/books';
 import BorrowedBooks from './components/borrowedBooks';
 import { SparklesCore } from './components/ui/Sparkles';
+import { useTheme } from './components/themeProvider';
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { theme } = useTheme();
+  console.log('theme', theme);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
-  };
   return (
     <>
       <div className="h-full max-w-full overflow-hidden absolute inset-0 z-0">
@@ -23,11 +20,13 @@ function App() {
           maxSize={1.4}
           particleDensity={400}
           className="w-full h-full"
-          particleColor={isDarkMode ? '#fff' : '#000'}
+          particleColor={
+            theme === 'dark' || theme === 'system' ? '#fff' : '#000'
+          }
         />
       </div>
       <div className="relative">
-        <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<Books />} />

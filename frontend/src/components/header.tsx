@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, Moon, Sun, Book } from 'lucide-react';
+import { Menu, Book } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,18 +10,14 @@ import {
   SheetClose,
 } from '@/components/ui/sheet';
 import { useState } from 'react';
-
-interface NavbarProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
+import { ModeToggle } from './themeToggle';
 
 const navLink = [
   { href: '/books', label: 'Books' },
   { href: '/borrowed', label: 'My borrowed books' },
 ];
 
-export default function Header({ isDarkMode, toggleDarkMode }: NavbarProps) {
+export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -41,7 +37,6 @@ export default function Header({ isDarkMode, toggleDarkMode }: NavbarProps) {
   return (
     <header className="bg-white dark:bg-[rgb(24,22,33)] rounded-2xl shadow-md m-2">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
         <NavLink
           to="/"
           className="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-50"
@@ -53,7 +48,6 @@ export default function Header({ isDarkMode, toggleDarkMode }: NavbarProps) {
           <span className="sm:hidden">Book Library</span>
         </NavLink>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:block">
           <ul className="hidden sm:flex space-x-6">
             {navLink.map((link) => (
@@ -67,25 +61,12 @@ export default function Header({ isDarkMode, toggleDarkMode }: NavbarProps) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleDarkMode}
-            aria-label={isDarkMode ? 'Active dark mode' : 'Active light mode'}
-          >
-            {isDarkMode ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </Button>
+          <ModeToggle />
 
-          {/* Desktop CTA Button */}
           <NavLink to="/books" className="hidden sm:block">
             <Button>Borrow a book !</Button>
           </NavLink>
 
-          {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" aria-label="Menu">
